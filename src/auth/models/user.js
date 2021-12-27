@@ -8,10 +8,10 @@ const client = require('../../db')
 const bcrypt = require('bcrypt')
 const signup = async (data) => {
     try {
-        let {firstName, lastName, email, password, role, commercialName} = data;
+        let {firstName, lastName, email, password, role, commercialName, service_type, description} = data;
         let hashedPassword = await bcrypt.hash(password,10);
-        let SQL = `INSERT INTO client (first_name, last_name, email, password, role, commercial_name) VAlUES ($1,$2,$3,$4,$5,$6) RETURNING *;`;
-        let safeValues = [firstName, lastName, email, hashedPassword, role, commercialName];
+        let SQL = `INSERT INTO client (first_name, last_name, email, password, role, commercial_name, service_type, description) VAlUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;`;
+        let safeValues = [firstName, lastName, email, hashedPassword, role, commercialName, service_type, description];
         let result = await client.query(SQL,safeValues);
         return result.rows[0];
     } catch (error) {
@@ -39,5 +39,6 @@ const getUserById = async id => {
         console.log(error)
     }
 };
+
 
 module.exports = {signup,getSellers,getUserById}

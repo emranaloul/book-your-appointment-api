@@ -11,7 +11,9 @@ CREATE TABLE client(
   first_name VARCHAR (250) NOT NULL,
   last_name VARCHAR (250) NOT NULL,
   role VARCHAR (250) NOT NULL,
-  commercial_name VARCHAR (250)
+  commercial_name VARCHAR (250),
+  service_type VARCHAR (250),
+  description text
 );
 
 CREATE TABLE appointment(

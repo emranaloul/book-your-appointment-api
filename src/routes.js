@@ -1,4 +1,4 @@
-const {signupHandler,signinHandler,check, getSellersHandler} = require('./auth/controller/authController')
+const {signupHandler,signinHandler,check, getSellersHandler,getUserHandler,logOutHandler} = require('./auth/controller/authController')
 const {createAppointmentHandler,getAppointmentHandler,deleteAppointmentHandler,updateAppointmentStatusHandler,updateAppointmentHandler} = require('./api/appoimentController')
 const basic = require('./auth/middleware/basic')
 const bearer = require('./auth/middleware/bearer')
@@ -10,6 +10,8 @@ router.post('/signup', signupHandler)
 router.post('/signin', basic,signinHandler)
 router.get('/check', bearer,check )
 router.get('/getSeller', bearer,getSellersHandler)
+router.get('/getUser', bearer, getUserHandler)
+router.get('/logout', bearer,logOutHandler)
 
 
 router.post('/createAppointment', bearer, createAppointmentHandler)
