@@ -1,4 +1,4 @@
-const {signup,getSellers} = require('../models/user')
+const {signup,getSellers, getUserById} = require('../models/user')
 const {createToken, deleteToken} = require('../models/jwt')
 
 const signupHandler = async (req,res) => {
@@ -33,4 +33,23 @@ const getSellersHandler = async (req,res) => {
     }
 }
 
-module.exports = {signupHandler,signinHandler,check,getSellersHandler}
+const getUserHandler = async (req,res) => {
+    try {
+        let id = req.user.id
+        let result = await getUserById(id)
+        res.status(200).json(result)
+    } catch (error) {
+        res.send(error.message)
+    }
+}
+
+const logOutHandler = async (req,res) => {
+    try {
+        let result = await deleteToken(req.user.id)
+        res.status(200).send('logged out successfully')
+    } catch (error) { 
+        res.send(error.message)
+    }
+}
+
+module.exports = {signupHandler,signinHandler,check,getSellersHandler,getUserHandler,logOutHandler}
